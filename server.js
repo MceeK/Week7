@@ -1,15 +1,10 @@
 let express = require('express');
 let ejs = require('ejs');
 let bodyParser = require('body-parser')
-let mongodb = require('mongodb');
-let ObjectId = require('mongodb').ObjectID;
 let mongoose = require('mongoose');
 
 let app = express();
-let mongodbClient = mongodb.MongoClient;
 let url = "mongodb://localhost:27017/week7";
-let db = null;
-let col = null;
 let query = {};
 let Task = require('./models/task')
 let Developer = require('./models/developer')
@@ -36,11 +31,7 @@ mongoose.connect(url,{
     }else{
         console.log("Mongoose Error:", err);
     };
-
-    // db = client.db('week6');
-    // col = db.collection('tasks');
-    });
-
+});
 
 
 app.get('/', function(req,res){
@@ -67,7 +58,7 @@ app.post('/newTask', function(req,res){
         }else{
             console.log('Task Saved')
             Task.find({}, function (err, data) {
-                res.render('listAll.html', { data: data });
+                res.render('listTask.html', { data: data });
             });
         }
     });
@@ -103,9 +94,9 @@ app.post('/newDeveloper', function(req,res){
     });
 });
 
-app.get('/listAll', function(req,res){
+app.get('/listTask', function(req,res){
     Task.find({}, function (err, data) {
-        res.render('listAll.html', { data: data });
+        res.render('listTask.html', { data: data });
     });
 });
 
@@ -124,7 +115,7 @@ app.post('/deleteTask', function(req,res){
     query = {id: deleteID};
     Task.deleteMany(query, function(err, data){
         Task.find({}, function (err, data) {
-            res.render('listAll.html', { data: data });
+            res.render('listTask.html', { data: data });
         });
     });
 });
@@ -133,7 +124,7 @@ app.get('/deleteComplete', function(req,res){
     query = {status: "Complete"};
     Task.deleteMany(query, function(err, data){
         Task.find({}, function (err, data) {
-            res.render('listAll.html', { data: data });
+            res.render('listTask.html', { data: data });
         });
     });
 });
@@ -147,7 +138,7 @@ app.post('/deleteDate', function(req,res) {
     query = {dueDate: {$lt: deleteDate}};
     Task.deleteMany(query, function (err, data) {
         Task.find({}, function (err, data) {
-            res.render('listAll.html', { data: data });
+            res.render('listTask.html', { data: data });
         });
     });
 });
@@ -162,7 +153,7 @@ app.post('/updateStatus', function(req, res){
     query = {id: taskID};
     Task.updateOne(query, {$set: {status: status}}, function(err, data){
         Task.find({}, function (err, data) {
-            res.render('listAll.html', { data: data });
+            res.render('listTask.html', { data: data });
         });
     });
 });
