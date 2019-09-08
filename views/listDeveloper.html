@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <h1>
+            List of All Developers
+        </h1>
+        <br><a href="/">Home</a>
+        <br><a href="newDeveloper">Add a Developer</a>
+        <table style="width:100%">
+                <tr>
+                    <th>MongoDB ID</th>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Level</th>
+                    <th>Address</th>
+                </tr>
+                <% for (let i = 0; i < data.length;i++){ %>
+                    <tr>
+                        <td>
+                            <%= data[i]._id %>
+                        </td>
+                        <td>
+                            <%= data[i].id %>
+                        </td>
+                        <td>
+                            <%= data[i].name.firstName + " " + data[i].name.lastName %>
+                        </td>
+                        <td>
+                            <%= data[i].level %>
+                        </td>
+                        <td>
+                            <%= data[i].address.unit + " " + data[i].address.street + ", " + data[i].address.suburb + " " + data[i].address.state %>
+                        </td>
+                    </tr>
+                    <% }%>
+        </table>
+    </body>
+</html>
