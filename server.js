@@ -158,24 +158,13 @@ app.get('/updateStatus', function(req,res){
 
 app.post('/updateStatus', function(req, res){
     let taskID = parseInt(req.body.taskID);
-    let status = req.body.status.toLocaleLowerCase();
+    let status = req.body.status;
     query = {id: taskID};
-    if (status == 'complete') {
-        Task.updateOne(query, {$set: {status: 'Complete'}}, function(err, data){
-            Task.find({}, function (err, data) {
-                res.render('listAll.html', { data: data });
-            });
+    Task.updateOne(query, {$set: {status: status}}, function(err, data){
+        Task.find({}, function (err, data) {
+            res.render('listAll.html', { data: data });
         });
-    }
-    else if (status == 'inprogress') {
-        col.updateOne(query, {$set: {status: 'InProgress'}}, function(err, data){
-            col.find({}).toArray(function (err, data) {
-                res.render('listAll.html', { data: data });
-            });
-        });
-    }else{
-        res.render('updateStatus.html', {data: "That was an invalid request"})
-    };
+    });
 });
 
 app.listen(app.get('port'));
