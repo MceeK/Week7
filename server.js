@@ -4,7 +4,7 @@ let bodyParser = require('body-parser')
 let mongoose = require('mongoose');
 
 let app = express();
-let url = "mongodb://localhost:27017/week7";
+let url = "mongodb://" + process.argv[2] + ":27017/week7";
 let query = {};
 let Task = require('./models/task')
 let Developer = require('./models/developer')
