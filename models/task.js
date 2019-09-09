@@ -3,7 +3,6 @@ let mongoose = require('mongoose');
 let taskSchema = mongoose.Schema({
     id: {
         type: Number,
-        default: Math.round(Math.random()*1000),
         require: true
     },
     name: {
@@ -11,7 +10,8 @@ let taskSchema = mongoose.Schema({
         require: true
     },
     assignTo: {
-        type: Number,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'developers',
         require: true
     },
     dueDate: {

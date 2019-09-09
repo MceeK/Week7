@@ -44,8 +44,14 @@ app.get('/newTask', function(req,res){
 
 app.post('/newTask', function(req,res){
     let taskDate = req.body.taskDate;
-    let date = new Date(taskDate);
+    let date = "";
+    if (taskDate == "") {
+        date = new Date(Date.now());
+    }else{
+        date = new Date(taskDate);
+    }
     let task = new Task({
+        id: Math.round(Math.random()*1000),
         name: req.body.taskName,
         assignTo: req.body.assignID,
         dueDate: date,
