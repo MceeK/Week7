@@ -75,6 +75,7 @@ app.get('/newDeveloper', function(req,res){
 });
 
 app.post('/newDeveloper', function(req,res){
+    let newUnit = parseInt(req.body.unit);
     let developer = new Developer({
         name:{
             firstName: req.body.firstName,
@@ -82,7 +83,7 @@ app.post('/newDeveloper', function(req,res){
         },
         level: req.body.level,
         address: {
-            unit: req.body.unit,
+            unit: newUnit,
             street: req.body.street,
             suburb: req.body.suburb,
             state: req.body.state
@@ -120,6 +121,21 @@ app.post('/deleteTask', function(req,res){
     let deleteID = parseInt(req.body.taskID);
     query = {id: deleteID};
     Task.deleteMany(query, function(err, data){
+        Task.find({}, function (err, data) {
+            res.render('listTask.html', { data: data });
+        });
+    });
+});
+
+app.get('/deleteTaskDropdown', function(req,res){
+    Task.find({}, function (err, data) {
+        res.render('deleteTaskDropdown.html', { data: data });
+    });
+});
+
+app.post('/deleteTaskDropdown', function(req,res){
+    let deleteID = req.body.id;
+    Task.findByIdAndDelete(deleteID, function(err, data){
         Task.find({}, function (err, data) {
             res.render('listTask.html', { data: data });
         });

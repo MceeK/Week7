@@ -21,7 +21,7 @@ let developerSchema = mongoose.Schema({
     },
     address: {
         unit: {
-            type: String,
+            type: Number,
             require: true
         },
         street: {

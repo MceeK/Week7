@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h1>
+            Delete a Task by Dropdown
+        </h1>
+        <br><a href="/">Home</a>
+        <br><a href="listTask">List all Tasks</a>
+        <form action="/deleteTaskDropdown" method="POST">
+
+            Task to Delete<select name="id">
+                <% for (let i = 0; i < data.length;i++){ %>
+                <option value="<%= data[i]._id %>"><%= data[i].name %> (<%= data[i].id %>)</option>
+                <% }%>
+            </select><br>
+            <button>Submit</button>
+        </form>
+    </body>
+</html>
